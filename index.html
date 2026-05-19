@@ -210,6 +210,7 @@
               </p>
             </article>
           </div>
+
         </div>
       </section>
 
@@ -226,6 +227,13 @@
 
           <div class="demo-grid reveal">
             <form class="diagnostic-panel" id="diagnosticForm">
+              <div class="demo-panel-head">
+                <span class="panel-step">01</span>
+                <div>
+                  <p class="mini-label">Intake engine</p>
+                  <h3>Ustaw profil ucznia</h3>
+                </div>
+              </div>
               <div class="field-grid">
                 <label>
                   Profil
@@ -275,30 +283,163 @@
                 <span><output id="timeOutput">25</output> min</span>
                 <input id="dailyTime" type="range" min="10" max="60" step="5" value="25" aria-label="Czas nauki dziennie w minutach" />
               </label>
+              <div class="diagnostic-signals" aria-label="Sygnały diagnostyczne">
+                <div>
+                  <span>Tempo</span>
+                  <strong id="demoIntensity">Skupione</strong>
+                </div>
+                <div>
+                  <span>Voice need</span>
+                  <strong id="voiceNeed">High</strong>
+                </div>
+                <div>
+                  <span>Momentum</span>
+                  <strong id="momentumScore">82%</strong>
+                </div>
+              </div>
               <button class="btn btn-primary" type="submit">Pokaż rekomendację</button>
             </form>
 
             <article class="recommendation-panel" aria-live="polite">
               <div class="recommendation-top">
-                <span class="mini-label">Rekomendacja AI</span>
+                <span class="live-badge"><i></i> Live adaptive path</span>
                 <span class="confidence" id="confidenceScore">88% fit</span>
               </div>
-              <h3 id="recommendationTitle">Conversation sprint z korektą po każdej odpowiedzi</h3>
-              <p id="recommendationCopy">
-                Dla osoby dorosłej na poziomie B1 celem jest przejście od rozumienia do płynnej reakcji w
-                rozmowie. Plan łączy krótką rozgrzewkę, role-play i powtórkę błędów.
-              </p>
-              <div class="learning-path" id="learningPath" aria-label="Proponowana ścieżka nauki">
-                <span>Diagnoza</span>
-                <span>Role-play</span>
-                <span>Voice feedback</span>
-                <span>Powtórka</span>
+
+              <div class="learner-summary">
+                <div class="learner-avatar" aria-hidden="true">ta</div>
+                <div>
+                  <span id="demoProfileLabel">Dorosły · B1</span>
+                  <strong id="demoGoalLabel">Rozmowy biznesowe</strong>
+                </div>
+                <div class="session-chip">
+                  <strong id="demoSessionTime">25 min</strong>
+                  <span>dzisiaj</span>
+                </div>
               </div>
+
+              <div class="recommendation-main">
+                <span class="mini-label">Rekomendacja AI</span>
+                <h3 id="recommendationTitle">Conversation sprint z korektą po każdej odpowiedzi</h3>
+                <p id="recommendationCopy">
+                  Dla osoby dorosłej na poziomie B1 celem jest przejście od rozumienia do płynnej reakcji w
+                  rozmowie. Plan łączy krótką rozgrzewkę, role-play i powtórkę błędów.
+                </p>
+              </div>
+
+              <div class="plan-board">
+                <div class="plan-board-head">
+                  <span>Ścieżka na dziś</span>
+                  <strong id="pathDuration">25 min</strong>
+                </div>
+                <div class="learning-path" id="learningPath" aria-label="Proponowana ścieżka nauki">
+                  <span class="path-step">
+                    <i>01</i>
+                    <strong>Diagnoza</strong>
+                    <small>Sygnał startowy</small>
+                  </span>
+                  <span class="path-step">
+                    <i>02</i>
+                    <strong>Role-play</strong>
+                    <small>Praktyka celu</small>
+                  </span>
+                  <span class="path-step">
+                    <i>03</i>
+                    <strong>Voice feedback</strong>
+                    <small>Korekta mowy</small>
+                  </span>
+                  <span class="path-step">
+                    <i>04</i>
+                    <strong>Powtórka</strong>
+                    <small>Retencja</small>
+                  </span>
+                </div>
+              </div>
+
+              <div class="adaptive-insights">
+                <div class="insight-tile primary">
+                  <span>Metoda</span>
+                  <strong id="methodLabel">Kontekst → rozmowa → korekta</strong>
+                </div>
+                <div class="insight-tile">
+                  <span>Voice readiness</span>
+                  <div class="voice-meter" aria-hidden="true"><i id="voiceMeter"></i></div>
+                  <strong id="voiceReadiness">74%</strong>
+                </div>
+                <div class="insight-tile">
+                  <span>Recall map</span>
+                  <div class="mini-heatmap" aria-hidden="true">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </div>
+                  <strong id="recallLabel">2 luki</strong>
+                </div>
+              </div>
+
               <div class="weakness-alert" id="weaknessAlert">
                 <strong>Słaby punkt:</strong>
                 spontaniczne odpowiedzi w czasie przeszłym.
               </div>
             </article>
+          </div>
+
+          <div class="method-stack reveal" aria-label="Metody nauki wykorzystywane przez Talmo">
+            <div class="method-stack-head">
+              <div>
+                <p class="eyebrow">Method stack</p>
+                <h3>Metody, na których będziemy budować skuteczność.</h3>
+              </div>
+              <p>
+                To nie są ozdobne nazwy funkcji. To baza uczenia, którą Talmo będzie mierzyć, testować i
+                dopracowywać wraz z danymi o retencji, błędach oraz realnych rozmowach.
+              </p>
+            </div>
+            <div class="method-grid">
+              <article class="method-card is-featured">
+                <span>01</span>
+                <h4>Active Recall</h4>
+                <p>Użytkownik aktywnie odtwarza słowa i struktury, zamiast tylko je rozpoznawać.</p>
+              </article>
+              <article class="method-card">
+                <span>02</span>
+                <h4>Spaced Repetition</h4>
+                <p>Powtórki wracają wtedy, gdy pamięć zaczyna słabnąć, a nie według sztywnego kalendarza.</p>
+              </article>
+              <article class="method-card">
+                <span>03</span>
+                <h4>Comprehensible Input</h4>
+                <p>Treści są minimalnie ponad aktualnym poziomem, żeby uczeń rozumiał sens i robił postęp.</p>
+              </article>
+              <article class="method-card">
+                <span>04</span>
+                <h4>Shadowing</h4>
+                <p>Trening mówienia przez powtarzanie rytmu, akcentu i intonacji za modelem głosowym.</p>
+              </article>
+              <article class="method-card">
+                <span>05</span>
+                <h4>Deliberate Practice</h4>
+                <p>Krótkie ćwiczenia celują w konkretną słabość: czas, wymowę, reakcję albo strukturę zdania.</p>
+              </article>
+              <article class="method-card">
+                <span>06</span>
+                <h4>Interleaving</h4>
+                <p>System miesza typy zadań, żeby użytkownik nie uczył się tylko rozpoznawania wzorca.</p>
+              </article>
+              <article class="method-card">
+                <span>07</span>
+                <h4>Task-Based Learning</h4>
+                <p>Język jest ćwiczony przez zadania: call, egzamin, podróż, mail, prezentację albo rozmowę.</p>
+              </article>
+              <article class="method-card">
+                <span>08</span>
+                <h4>Error-Based Learning</h4>
+                <p>Błąd staje się sygnałem do personalizacji, a nie końcem lekcji lub czerwonym komunikatem.</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>

@@ -29,26 +29,36 @@ const goals = {
   business: {
     title: "Conversation sprint z korektą po każdej odpowiedzi",
     focus: "rozmowy biznesowe, argumentacja i pewność reakcji",
+    label: "Rozmowy biznesowe",
+    method: "Task-Based + Deliberate Practice",
     path: ["Diagnoza", "Role-play", "Voice feedback", "Powtórka"],
   },
   exam: {
     title: "Plan egzaminacyjny z mapą luk i krótkimi testami",
     focus: "zadania egzaminacyjne, precyzja i kontrola typowych błędów",
+    label: "Egzamin",
+    method: "Active Recall + Interleaving",
     path: ["Test poziomu", "Mapa luk", "Ćwiczenia", "Mini egzamin"],
   },
   travel: {
     title: "Praktyczna ścieżka sytuacyjna do podróży",
     focus: "reakcje w hotelu, restauracji, transporcie i sytuacjach awaryjnych",
+    label: "Podróże",
+    method: "Comprehensible Input + Shadowing",
     path: ["Frazy", "Dialog", "Wymowa", "Symulacja"],
   },
   school: {
     title: "Ścieżka szkolna z powtórką materiału i testem",
     focus: "bieżące tematy, słownictwo z lekcji i przygotowanie do sprawdzianu",
+    label: "Szkoła",
+    method: "Spaced Repetition + Active Recall",
     path: ["Lekcja", "Luki", "Powtórka", "Kartkówka"],
   },
   relocation: {
     title: "Język relokacji: formalności, praca i codzienność",
     focus: "rozmowy urzędowe, mieszkanie, praca i praktyczne słownictwo",
+    label: "Relokacja",
+    method: "Task-Based Learning + Input",
     path: ["Priorytety", "Scenariusze", "Voice", "Checklista"],
   },
 };
@@ -59,6 +69,45 @@ const blockers = {
   listening: "rozumienie naturalnego tempa i akcentów",
   motivation: "utrzymanie rytmu bez sztucznej presji",
   vocabulary: "słownictwo aktywne, którego użytkownik faktycznie używa",
+};
+
+const profileNames = {
+  child: "Dziecko",
+  teen: "Uczeń",
+  student: "Student",
+  adult: "Dorosły",
+  senior: "Senior",
+  company: "Firma",
+};
+
+const pathNotes = {
+  Diagnoza: "Sygnał startowy",
+  "Role-play": "Praktyka celu",
+  "Voice feedback": "Korekta mowy",
+  Powtórka: "Retencja",
+  "Test poziomu": "Punkt odniesienia",
+  "Mapa luk": "Priorytety",
+  Ćwiczenia: "Celowana praktyka",
+  "Mini egzamin": "Kontrola stresu",
+  Frazy: "Słowa w kontekście",
+  Dialog: "Naturalna reakcja",
+  Wymowa: "Rytm i intonacja",
+  Symulacja: "Realna sytuacja",
+  Lekcja: "Materiał szkolny",
+  Luki: "Błędy do naprawy",
+  Kartkówka: "Szybki test",
+  Priorytety: "Kolejność potrzeb",
+  Scenariusze: "Zadania życia",
+  Voice: "Mówienie",
+  Checklista: "Gotowość",
+};
+
+const blockerSignals = {
+  speaking: { voice: "High", recall: "2 luki", readiness: 68, method: "Shadowing + Deliberate Practice" },
+  grammar: { voice: "Medium", recall: "3 luki", readiness: 78, method: "Active Recall + Error-Based Learning" },
+  listening: { voice: "High", recall: "2 luki", readiness: 64, method: "Comprehensible Input + Shadowing" },
+  motivation: { voice: "Low", recall: "rytm", readiness: 82, method: "Spaced Repetition + krótkie cele" },
+  vocabulary: { voice: "Medium", recall: "4 luki", readiness: 76, method: "Active Recall + Spaced Repetition" },
 };
 
 const profiles = {
@@ -154,17 +203,43 @@ function updateDiagnostic(event) {
   if (event) event.preventDefault();
 
   const profile = diagnosticProfiles[qs("#ageGroup").value];
+  const profileKey = qs("#ageGroup").value;
   const level = qs("#level").value.toUpperCase();
-  const goal = goals[qs("#goal").value];
-  const blocker = blockers[qs("#blocker").value];
+  const goalKey = qs("#goal").value;
+  const goal = goals[goalKey];
+  const blockerKey = qs("#blocker").value;
+  const blocker = blockers[blockerKey];
+  const signal = blockerSignals[blockerKey];
   const minutes = Number(qs("#dailyTime").value);
   const confidence = Math.min(96, 72 + Math.round(minutes / 4) + (level.includes("B") ? 8 : 4));
+  const momentum = Math.min(96, 58 + Math.round(minutes / 2) + (goalKey === "business" ? 4 : 0));
+  const intensity = minutes >= 45 ? "Intensywne" : minutes >= 25 ? "Skupione" : "Lekkie";
+  const voiceReadiness = Math.min(94, signal.readiness + (level.includes("B") ? 6 : 0) + (minutes >= 30 ? 4 : 0));
 
   qs("#timeOutput").textContent = minutes;
   qs("#confidenceScore").textContent = `${confidence}% fit`;
+  qs("#demoIntensity").textContent = intensity;
+  qs("#voiceNeed").textContent = signal.voice;
+  qs("#momentumScore").textContent = `${momentum}%`;
+  qs("#demoProfileLabel").textContent = `${profileNames[profileKey]} · ${level}`;
+  qs("#demoGoalLabel").textContent = goal.label;
+  qs("#demoSessionTime").textContent = `${minutes} min`;
+  qs("#pathDuration").textContent = `${minutes} min`;
   qs("#recommendationTitle").textContent = goal.title;
   qs("#recommendationCopy").textContent = `Dla ${profile.label} na poziomie ${level} najlepszy start to ${profile.base}. Priorytetem są ${goal.focus}, a najbliższa korekta powinna objąć ${blocker}.`;
-  qs("#learningPath").innerHTML = goal.path.map((step) => `<span>${step}</span>`).join("");
+  qs("#learningPath").innerHTML = goal.path
+    .map(
+      (step, index) => `<span class="path-step">
+        <i>${String(index + 1).padStart(2, "0")}</i>
+        <strong>${step}</strong>
+        <small>${pathNotes[step] || "Następny krok"}</small>
+      </span>`,
+    )
+    .join("");
+  qs("#methodLabel").textContent = signal.method || goal.method;
+  qs("#voiceReadiness").textContent = `${voiceReadiness}%`;
+  qs("#voiceMeter").style.width = `${voiceReadiness}%`;
+  qs("#recallLabel").textContent = signal.recall;
   qs("#weaknessAlert").innerHTML = `<strong>Słaby punkt:</strong> ${blocker}. Plan dnia: ${minutes} minut w pętli diagnoza, praktyka i powtórka.`;
 }
 
