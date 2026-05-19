@@ -148,40 +148,62 @@ svg {
 }
 
 .brand-mark {
+  position: relative;
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   place-items: center;
-  border: 1px solid rgba(16, 42, 67, 0.12);
-  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 42, 67, 0.14);
+  border-radius: 17px;
   background:
-    radial-gradient(circle at 32% 25%, rgba(216, 243, 176, 0.75), transparent 28%),
-    linear-gradient(145deg, #0f2a43, #245776);
+    radial-gradient(circle at 76% 22%, rgba(246, 164, 77, 0.82), transparent 17%),
+    radial-gradient(circle at 26% 78%, rgba(216, 243, 176, 0.72), transparent 26%),
+    linear-gradient(145deg, #0b2137 0%, #123c5c 58%, #246f83 100%);
   box-shadow:
-    0 12px 26px rgba(16, 42, 67, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    0 14px 30px rgba(16, 42, 67, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.brand-mark::after {
+  position: absolute;
+  inset: 1px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.24), transparent 40%);
+  content: "";
 }
 
 .brand-mark svg {
-  width: 30px;
-  height: 30px;
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
 }
 
-.mark-field {
-  fill: transparent;
-}
-
-.mark-path,
+.mark-top,
+.mark-stem,
+.mark-route,
 .mark-tail {
   fill: none;
   stroke: #fafbf7;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 4.2;
+  stroke-width: 7;
 }
 
+.mark-route,
 .mark-tail {
   stroke: #d8f3b0;
+}
+
+.mark-route {
+  stroke-width: 5.8;
+}
+
+.mark-dot {
+  fill: #f6a44d;
+  stroke: rgba(255, 255, 255, 0.88);
+  stroke-width: 2.4;
 }
 
 .nav-links {
