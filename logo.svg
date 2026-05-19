@@ -1,30 +1,27 @@
-<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="760" height="240" viewBox="0 0 760 240" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="talmo-bg" x1="46" y1="22" x2="276" y2="306" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0B2137"/>
-      <stop offset=".56" stop-color="#123C5C"/>
-      <stop offset="1" stop-color="#246F83"/>
+    <linearGradient id="talmo-bg" x1="24" y1="28" x2="184" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102A43"/>
+      <stop offset=".55" stop-color="#123A57"/>
+      <stop offset="1" stop-color="#0D6B73"/>
     </linearGradient>
-    <radialGradient id="talmo-mint" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(90 250) rotate(50) scale(112)">
-      <stop stop-color="#D8F3B0" stop-opacity=".86"/>
+    <radialGradient id="talmo-mint" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38 198) rotate(-40) scale(118)">
+      <stop stop-color="#D8F3B0" stop-opacity=".9"/>
       <stop offset="1" stop-color="#D8F3B0" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="talmo-orange" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(242 80) rotate(90) scale(80)">
-      <stop stop-color="#F6A44D" stop-opacity=".92"/>
-      <stop offset="1" stop-color="#F6A44D" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="talmo-shadow" x="0" y="0" width="320" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#102A43" flood-opacity=".22"/>
+    <filter id="shadow" x="0" y="0" width="230" height="230" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#102A43" flood-opacity=".18"/>
     </filter>
   </defs>
-  <g filter="url(#talmo-shadow)">
-    <rect x="24" y="18" width="272" height="272" rx="78" fill="url(#talmo-bg)"/>
-    <rect x="24" y="18" width="272" height="272" rx="78" fill="url(#talmo-mint)"/>
-    <rect x="24" y="18" width="272" height="272" rx="78" fill="url(#talmo-orange)"/>
-    <path d="M84 96h152" stroke="#FAFBF7" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M160 96v140" stroke="#FAFBF7" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M160 236c43-.9 79-34.1 79-79" stroke="#D8F3B0" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M119 236 84 271v-42" stroke="#D8F3B0" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="236" cy="96" r="25" fill="#F6A44D" stroke="#FAFBF7" stroke-width="12"/>
+  <rect width="760" height="240" rx="44" fill="#FAFBF7"/>
+  <g filter="url(#shadow)">
+    <rect x="30" y="38" width="172" height="154" rx="56" fill="url(#talmo-bg)"/>
+    <rect x="30" y="38" width="172" height="154" rx="56" fill="url(#talmo-mint)"/>
+    <text x="56" y="143" fill="#FAFBF7" font-family="Sora, Inter, Arial, sans-serif" font-size="76" font-weight="800">ta</text>
+    <circle cx="166" cy="73" r="18" fill="#F6A44D"/>
+    <rect x="130" y="146" width="50" height="14" rx="7" fill="#D8F3B0"/>
   </g>
+  <text x="244" y="145" fill="#102A43" font-family="Sora, Inter, Arial, sans-serif" font-size="78" font-weight="800">talm</text>
+  <text x="486" y="145" fill="#F6A44D" font-family="Sora, Inter, Arial, sans-serif" font-size="78" font-weight="800">o</text>
+  <text x="248" y="184" fill="#5C7185" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600">personal language path</text>
 </svg>

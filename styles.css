@@ -142,7 +142,7 @@ svg {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   font-weight: 800;
   color: var(--deep-navy);
 }
@@ -150,60 +150,47 @@ svg {
 .brand-mark {
   position: relative;
   display: grid;
-  width: 42px;
+  width: 52px;
   height: 42px;
   place-items: center;
   overflow: hidden;
-  border: 1px solid rgba(16, 42, 67, 0.14);
-  border-radius: 17px;
+  border: 1px solid rgba(16, 42, 67, 0.13);
+  border-radius: 18px;
   background:
-    radial-gradient(circle at 76% 22%, rgba(246, 164, 77, 0.82), transparent 17%),
-    radial-gradient(circle at 26% 78%, rgba(216, 243, 176, 0.72), transparent 26%),
-    linear-gradient(145deg, #0b2137 0%, #123c5c 58%, #246f83 100%);
+    radial-gradient(circle at 84% 22%, rgba(246, 164, 77, 0.95) 0 13%, transparent 14%),
+    radial-gradient(circle at 12% 100%, rgba(216, 243, 176, 0.8), transparent 38%),
+    linear-gradient(145deg, #102a43 0%, #123a57 52%, #0d6b73 100%);
   box-shadow:
-    0 14px 30px rgba(16, 42, 67, 0.24),
+    0 14px 30px rgba(16, 42, 67, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  color: #fafbf7;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .brand-mark::after {
   position: absolute;
-  inset: 1px;
-  border-radius: 16px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.24), transparent 40%);
+  right: 9px;
+  bottom: 8px;
+  width: 17px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--growth-green);
   content: "";
 }
 
-.brand-mark svg {
-  position: relative;
-  z-index: 1;
-  width: 34px;
-  height: 34px;
+.brand-word {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 850;
+  line-height: 1;
+  color: var(--deep-navy);
 }
 
-.mark-top,
-.mark-stem,
-.mark-route,
-.mark-tail {
-  fill: none;
-  stroke: #fafbf7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 7;
-}
-
-.mark-route,
-.mark-tail {
-  stroke: #d8f3b0;
-}
-
-.mark-route {
-  stroke-width: 5.8;
-}
-
-.mark-dot {
-  fill: #f6a44d;
-  stroke: rgba(255, 255, 255, 0.88);
-  stroke-width: 2.4;
+.brand-word span {
+  color: var(--motivation-orange);
 }
 
 .nav-links {

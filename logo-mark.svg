@@ -1,0 +1,24 @@
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="46" y1="42" x2="276" y2="294" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102A43"/>
+      <stop offset=".55" stop-color="#123A57"/>
+      <stop offset="1" stop-color="#0D6B73"/>
+    </linearGradient>
+    <radialGradient id="mint" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(52 306) rotate(-42) scale(196)">
+      <stop stop-color="#D8F3B0" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#D8F3B0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="0" y="0" width="320" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#102A43" flood-opacity=".2"/>
+    </filter>
+  </defs>
+  <rect width="320" height="320" rx="72" fill="#FAFBF7"/>
+  <g filter="url(#shadow)">
+    <rect x="42" y="58" width="236" height="204" rx="74" fill="url(#bg)"/>
+    <rect x="42" y="58" width="236" height="204" rx="74" fill="url(#mint)"/>
+    <text x="77" y="194" fill="#FAFBF7" font-family="Sora, Inter, Arial, sans-serif" font-size="106" font-weight="800">ta</text>
+    <circle cx="235" cy="98" r="27" fill="#F6A44D"/>
+    <rect x="190" y="200" width="68" height="20" rx="10" fill="#D8F3B0"/>
+  </g>
+</svg>

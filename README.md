@@ -14,6 +14,7 @@ Talmo diagnoses a learner's level, goal, pace and blockers, then turns those inp
 - Market data cards with public source links
 - Investor one-pager section
 - Responsive static implementation with no build step
+- Talmo brand assets: `logo.svg`, `logo-mark.svg`, `favicon.svg`
 
 ## Run Locally
 
