@@ -189,6 +189,59 @@ const chatModes = {
   },
 };
 
+const subjects = {
+  language: {
+    glyph: "Aa",
+    label: "Talmo Languages",
+    title: "Mówienie, rozumienie i retencja w jednym planie.",
+    copy: "Użytkownik ćwiczy realne sytuacje językowe, a system łączy voice practice, błędy i powtórki.",
+    weakness: "spontaniczne odpowiedzi",
+    method: "Shadowing + Active Recall",
+    exercise: "role-play z korektą głosu",
+    feedback: "płynność, intonacja, czas reakcji",
+  },
+  math: {
+    glyph: "∑",
+    label: "Talmo Math",
+    title: "Najpierw luka pojęciowa, potem zadanie.",
+    copy: "Silnik wykrywa, czy problemem jest wzór, intuicja, kolejność działań czy stres przy zadaniu.",
+    weakness: "ułamki i proporcje",
+    method: "Worked Examples + Active Recall",
+    exercise: "wizualne zadanie krok po kroku",
+    feedback: "gdzie uczeń zgubił logikę",
+  },
+  code: {
+    glyph: "</>",
+    label: "Talmo Code",
+    title: "Nauka programowania przez debugowanie.",
+    copy: "Zamiast biernego kursu uczeń naprawia małe fragmenty kodu i dostaje feedback na decyzje.",
+    weakness: "pętle i warunki",
+    method: "Deliberate Practice + Interleaving",
+    exercise: "mini debug task",
+    feedback: "błąd logiczny, składnia, test case",
+  },
+  geo: {
+    glyph: "⌖",
+    label: "Talmo Geography",
+    title: "Mapa pojęć zamiast pamięciówki.",
+    copy: "Talmo może łączyć quizy, skojarzenia przestrzenne i zależności przyczynowo-skutkowe.",
+    weakness: "regiony i zależności",
+    method: "Dual Coding + Retrieval Practice",
+    exercise: "quiz mapowy z uzasadnieniem",
+    feedback: "pojęcie, lokalizacja, zależność",
+  },
+  exam: {
+    glyph: "90",
+    label: "Talmo Exam Prep",
+    title: "Ścieżka egzaminacyjna z kontrolą luk.",
+    copy: "System miesza typy zadań, mierzy stabilność odpowiedzi i wraca do tematów przed zapomnieniem.",
+    weakness: "presja czasu",
+    method: "Interleaving + Spaced Repetition",
+    exercise: "mini arkusz adaptacyjny",
+    feedback: "czas, pewność, typ błędu",
+  },
+};
+
 const formatNumber = new Intl.NumberFormat("pl-PL");
 const formatCurrency = new Intl.NumberFormat("pl-PL", {
   style: "currency",
@@ -316,6 +369,24 @@ function updateCalculator() {
   marginNode.style.color = margin >= 35 ? "#d8f3b0" : margin >= 0 ? "#fff8ed" : "#f6a44d";
 }
 
+function updateSubject(subjectKey) {
+  const subject = subjects[subjectKey];
+  qs("#subjectGlyph").textContent = subject.glyph;
+  qs("#subjectLabel").textContent = subject.label;
+  qs("#subjectTitle").textContent = subject.title;
+  qs("#subjectCopy").textContent = subject.copy;
+  qs("#subjectWeakness").textContent = subject.weakness;
+  qs("#subjectMethod").textContent = subject.method;
+  qs("#subjectExercise").textContent = subject.exercise;
+  qs("#subjectFeedback").textContent = subject.feedback;
+
+  qsa(".subject-tab").forEach((tab) => {
+    const isActive = tab.dataset.subject === subjectKey;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+}
+
 function initReveal() {
   const elements = qsa(".reveal");
 
@@ -357,11 +428,16 @@ function init() {
     button.addEventListener("click", () => handleAnswer(button));
   });
 
+  qsa(".subject-tab").forEach((tab) => {
+    tab.addEventListener("click", () => updateSubject(tab.dataset.subject));
+  });
+
   ["#usersRange", "#conversionRange", "#arpuRange", "#churnRange", "#aiCostRange"].forEach((selector) => {
     qs(selector).addEventListener("input", updateCalculator);
   });
 
   updateDiagnostic();
+  updateSubject("language");
   updateCalculator();
   initReveal();
 }
