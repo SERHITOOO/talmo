@@ -229,77 +229,141 @@
 
           <div class="demo-grid reveal">
             <form class="diagnostic-panel" id="diagnosticForm">
-              <div class="demo-panel-head">
-                <span class="panel-step">01</span>
-                <div>
-                  <p class="mini-label">Intake engine</p>
-                  <h3>Ustaw profil ucznia</h3>
+              <div class="intake-window-topbar" aria-hidden="true">
+                <div class="window-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <span class="secure-pill">Diagnostic session active</span>
+              </div>
+              <div class="intake-body">
+                <div class="demo-panel-head">
+                  <span class="panel-step">01</span>
+                  <div>
+                    <p class="mini-label">Intake engine</p>
+                    <h3>Ustaw profil ucznia</h3>
+                  </div>
+                  <span class="intake-status">4 sygnały analizowane</span>
+                </div>
+
+                <div class="intake-summary">
+                  <div>
+                    <span>Aktualny profil</span>
+                    <strong id="diagnosticSummary">Dorosły · B1 · Rozmowy biznesowe</strong>
+                  </div>
+                  <div>
+                    <span>Tryb AI</span>
+                    <strong>Personalizacja live</strong>
+                  </div>
+                </div>
+
+                <div class="intake-control-card">
+                  <div class="field-grid" aria-label="Dane wejściowe diagnostyki">
+                    <label class="form-field">
+                      <span class="field-top">
+                        <span>Profil</span>
+                        <small>segment</small>
+                      </span>
+                      <select id="ageGroup" aria-label="Wybierz profil użytkownika">
+                        <option value="adult">Dorosły</option>
+                        <option value="student">Student</option>
+                        <option value="teen">Uczeń</option>
+                        <option value="child">Dziecko</option>
+                        <option value="senior">Senior</option>
+                        <option value="company">Firma</option>
+                      </select>
+                    </label>
+                    <label class="form-field">
+                      <span class="field-top">
+                        <span>Poziom</span>
+                        <small>start</small>
+                      </span>
+                      <select id="level" aria-label="Wybierz poziom języka">
+                        <option value="a0">A0</option>
+                        <option value="a1">A1</option>
+                        <option value="a2">A2</option>
+                        <option value="b1" selected>B1</option>
+                        <option value="b2">B2</option>
+                        <option value="c1">C1</option>
+                      </select>
+                    </label>
+                    <label class="form-field">
+                      <span class="field-top">
+                        <span>Cel</span>
+                        <small>priorytet</small>
+                      </span>
+                      <select id="goal" aria-label="Wybierz cel nauki">
+                        <option value="business" selected>Rozmowy biznesowe</option>
+                        <option value="exam">Egzamin</option>
+                        <option value="travel">Podróże</option>
+                        <option value="school">Szkoła</option>
+                        <option value="relocation">Relokacja</option>
+                      </select>
+                    </label>
+                    <label class="form-field">
+                      <span class="field-top">
+                        <span>Blokada</span>
+                        <small>luka</small>
+                      </span>
+                      <select id="blocker" aria-label="Wybierz główny problem">
+                        <option value="speaking" selected>Mówienie</option>
+                        <option value="grammar">Gramatyka</option>
+                        <option value="listening">Słuchanie</option>
+                        <option value="motivation">Motywacja</option>
+                        <option value="vocabulary">Słownictwo</option>
+                      </select>
+                    </label>
+                  </div>
+
+                  <label class="range-label diagnostic-range">
+                    <span class="range-top">
+                      <span>Czas dziennie</span>
+                      <strong><output id="timeOutput">25</output> min</strong>
+                    </span>
+                    <input id="dailyTime" type="range" min="10" max="60" step="5" value="25" aria-label="Czas nauki dziennie w minutach" />
+                    <span class="range-scale" aria-hidden="true">
+                      <small>10 min</small>
+                      <small>35 min</small>
+                      <small>60 min</small>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="diagnostic-signals" aria-label="Sygnały diagnostyczne">
+                  <div>
+                    <span>Tempo</span>
+                    <strong id="demoIntensity">Skupione</strong>
+                    <i id="intensityMeter" style="--signal: 62%"></i>
+                  </div>
+                  <div>
+                    <span>Voice need</span>
+                    <strong id="voiceNeed">High</strong>
+                    <i id="voiceNeedMeter" style="--signal: 78%"></i>
+                  </div>
+                  <div>
+                    <span>Momentum</span>
+                    <strong id="momentumScore">82%</strong>
+                    <i id="momentumMeter" style="--signal: 82%"></i>
+                  </div>
+                </div>
+
+                <div class="intake-stack" aria-label="Metody wybrane przez diagnostykę">
+                  <div class="stack-card primary">
+                    <span>Rekomendowana metoda</span>
+                    <strong id="methodPreview">Shadowing + Deliberate Practice</strong>
+                  </div>
+                  <div class="stack-card">
+                    <span>Warstwa ochronna</span>
+                    <strong>Privacy-first learning signals</strong>
+                  </div>
+                </div>
+
+                <div class="intake-action-row">
+                  <span>To demo modelowe. Wynik zmienia się po każdej zmianie profilu.</span>
+                  <button class="btn btn-primary" type="submit">Pokaż rekomendację</button>
                 </div>
               </div>
-              <div class="field-grid">
-                <label>
-                  Profil
-                  <select id="ageGroup" aria-label="Wybierz profil użytkownika">
-                    <option value="adult">Dorosły</option>
-                    <option value="student">Student</option>
-                    <option value="teen">Uczeń</option>
-                    <option value="child">Dziecko</option>
-                    <option value="senior">Senior</option>
-                    <option value="company">Firma</option>
-                  </select>
-                </label>
-                <label>
-                  Poziom
-                  <select id="level" aria-label="Wybierz poziom języka">
-                    <option value="a0">A0</option>
-                    <option value="a1">A1</option>
-                    <option value="a2">A2</option>
-                    <option value="b1" selected>B1</option>
-                    <option value="b2">B2</option>
-                    <option value="c1">C1</option>
-                  </select>
-                </label>
-                <label>
-                  Cel
-                  <select id="goal" aria-label="Wybierz cel nauki">
-                    <option value="business" selected>Rozmowy biznesowe</option>
-                    <option value="exam">Egzamin</option>
-                    <option value="travel">Podróże</option>
-                    <option value="school">Szkoła</option>
-                    <option value="relocation">Relokacja</option>
-                  </select>
-                </label>
-                <label>
-                  Blokada
-                  <select id="blocker" aria-label="Wybierz główny problem">
-                    <option value="speaking" selected>Mówienie</option>
-                    <option value="grammar">Gramatyka</option>
-                    <option value="listening">Słuchanie</option>
-                    <option value="motivation">Motywacja</option>
-                    <option value="vocabulary">Słownictwo</option>
-                  </select>
-                </label>
-              </div>
-              <label class="range-label">
-                Czas dziennie
-                <span><output id="timeOutput">25</output> min</span>
-                <input id="dailyTime" type="range" min="10" max="60" step="5" value="25" aria-label="Czas nauki dziennie w minutach" />
-              </label>
-              <div class="diagnostic-signals" aria-label="Sygnały diagnostyczne">
-                <div>
-                  <span>Tempo</span>
-                  <strong id="demoIntensity">Skupione</strong>
-                </div>
-                <div>
-                  <span>Voice need</span>
-                  <strong id="voiceNeed">High</strong>
-                </div>
-                <div>
-                  <span>Momentum</span>
-                  <strong id="momentumScore">82%</strong>
-                </div>
-              </div>
-              <button class="btn btn-primary" type="submit">Pokaż rekomendację</button>
             </form>
 
             <article class="recommendation-panel" aria-live="polite">

@@ -267,13 +267,19 @@ function updateDiagnostic(event) {
   const confidence = Math.min(96, 72 + Math.round(minutes / 4) + (level.includes("B") ? 8 : 4));
   const momentum = Math.min(96, 58 + Math.round(minutes / 2) + (goalKey === "business" ? 4 : 0));
   const intensity = minutes >= 45 ? "Intensywne" : minutes >= 25 ? "Skupione" : "Lekkie";
+  const intensityScore = minutes >= 45 ? 88 : minutes >= 25 ? 66 : 42;
+  const voiceNeedScore = { High: 84, Medium: 62, Low: 38 }[signal.voice] || 62;
   const voiceReadiness = Math.min(94, signal.readiness + (level.includes("B") ? 6 : 0) + (minutes >= 30 ? 4 : 0));
 
   qs("#timeOutput").textContent = minutes;
   qs("#confidenceScore").textContent = `${confidence}% fit`;
+  qs("#diagnosticSummary").textContent = `${profileNames[profileKey]} · ${level} · ${goal.label}`;
   qs("#demoIntensity").textContent = intensity;
   qs("#voiceNeed").textContent = signal.voice;
   qs("#momentumScore").textContent = `${momentum}%`;
+  qs("#intensityMeter").style.setProperty("--signal", `${intensityScore}%`);
+  qs("#voiceNeedMeter").style.setProperty("--signal", `${voiceNeedScore}%`);
+  qs("#momentumMeter").style.setProperty("--signal", `${momentum}%`);
   qs("#demoProfileLabel").textContent = `${profileNames[profileKey]} · ${level}`;
   qs("#demoGoalLabel").textContent = goal.label;
   qs("#demoSessionTime").textContent = `${minutes} min`;
@@ -290,6 +296,7 @@ function updateDiagnostic(event) {
     )
     .join("");
   qs("#methodLabel").textContent = signal.method || goal.method;
+  qs("#methodPreview").textContent = signal.method || goal.method;
   qs("#voiceReadiness").textContent = `${voiceReadiness}%`;
   qs("#voiceMeter").style.width = `${voiceReadiness}%`;
   qs("#recallLabel").textContent = signal.recall;
