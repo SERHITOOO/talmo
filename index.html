@@ -231,8 +231,8 @@
             <form class="diagnostic-panel" id="diagnosticForm">
               <input id="ageGroup" type="hidden" value="adult" />
               <input id="level" type="hidden" value="b1" />
-              <input id="goal" type="hidden" value="business" />
-              <input id="blocker" type="hidden" value="speaking" />
+              <input id="goal" type="hidden" value="business,school" />
+              <input id="blocker" type="hidden" value="speaking,vocabulary" />
 
               <div class="diagnostic-app-head">
                 <div>
@@ -320,16 +320,16 @@
                     <div class="choice-head">
                       <span>03</span>
                       <div>
-                        <h4>Blokada</h4>
-                        <p>Co hamuje postęp?</p>
+                        <h4>Blokady</h4>
+                        <p>Możesz wskazać kilka problemów.</p>
                       </div>
                     </div>
-                    <div class="blocker-pills choice-group" data-input="blocker" aria-label="Wybierz główny problem">
+                    <div class="blocker-pills choice-group" data-input="blocker" data-multiple="true" aria-label="Wybierz główne problemy">
                       <button class="is-selected" type="button" data-value="speaking" aria-pressed="true">Mówienie</button>
                       <button type="button" data-value="grammar" aria-pressed="false">Gramatyka</button>
                       <button type="button" data-value="listening" aria-pressed="false">Słuchanie</button>
                       <button type="button" data-value="motivation" aria-pressed="false">Motywacja</button>
-                      <button type="button" data-value="vocabulary" aria-pressed="false">Słownictwo</button>
+                      <button class="is-selected" type="button" data-value="vocabulary" aria-pressed="true">Słownictwo</button>
                     </div>
                   </section>
                 </div>
@@ -338,11 +338,11 @@
                   <div class="choice-head">
                     <span>04</span>
                     <div>
-                      <h4>Cel nauki</h4>
-                      <p>System dopasuje ścieżkę i metodę do zadania.</p>
+                      <h4>Cele nauki</h4>
+                      <p>Łącz konteksty, jeśli nauka ma kilka zastosowań.</p>
                     </div>
                   </div>
-                  <div class="goal-card-grid choice-group" data-input="goal" aria-label="Wybierz cel nauki">
+                  <div class="goal-card-grid choice-group" data-input="goal" data-multiple="true" aria-label="Wybierz cele nauki">
                     <button class="mini-choice-card is-selected" type="button" data-value="business" aria-pressed="true">
                       <strong>Biznes</strong>
                       <small>spotkania, argumentacja, klienci</small>
@@ -355,7 +355,7 @@
                       <strong>Podróże</strong>
                       <small>sytuacje, dialogi, reakcje</small>
                     </button>
-                    <button class="mini-choice-card" type="button" data-value="school" aria-pressed="false">
+                    <button class="mini-choice-card is-selected" type="button" data-value="school" aria-pressed="true">
                       <strong>Szkoła</strong>
                       <small>tematy, powtórki, sprawdziany</small>
                     </button>

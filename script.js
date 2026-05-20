@@ -71,6 +71,14 @@ const blockers = {
   vocabulary: "słownictwo aktywne, którego użytkownik faktycznie używa",
 };
 
+const blockerNames = {
+  speaking: "Mówienie",
+  grammar: "Gramatyka",
+  listening: "Słuchanie",
+  motivation: "Motywacja",
+  vocabulary: "Słownictwo",
+};
+
 const profileNames = {
   child: "Dziecko",
   teen: "Uczeń",
@@ -252,41 +260,109 @@ const formatCurrency = new Intl.NumberFormat("pl-PL", {
 const qs = (selector) => document.querySelector(selector);
 const qsa = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
+function readSelection(inputId) {
+  return qs(`#${inputId}`).value.split(",").filter(Boolean);
+}
+
+function joinLabels(labels, limit = 3) {
+  const visible = labels.slice(0, limit);
+  const extra = labels.length - visible.length;
+  return extra > 0 ? `${visible.join(" + ")} +${extra}` : visible.join(" + ");
+}
+
+function uniqueItems(items) {
+  return Array.from(new Set(items.filter(Boolean)));
+}
+
+function getVoiceNeed(signals) {
+  if (signals.some((signal) => signal.voice === "High")) return "High";
+  if (signals.some((signal) => signal.voice === "Medium")) return "Medium";
+  return "Low";
+}
+
+function getRecallLabel(signals) {
+  const numericGaps = signals
+    .map((signal) => Number.parseInt(signal.recall, 10))
+    .filter((value) => Number.isFinite(value));
+
+  if (numericGaps.length) {
+    const total = numericGaps.reduce((sum, value) => sum + value, 0);
+    if (total === 1) return "1 luka";
+    if ([2, 3, 4].includes(total)) return `${total} luki`;
+    return `${total} luk`;
+  }
+
+  return uniqueItems(signals.map((signal) => signal.recall)).join(" + ");
+}
+
+function buildCombinedPath(selectedGoals, selectedSignals) {
+  const methodSteps = selectedSignals
+    .map((signal) => {
+      if (signal.voice === "High") return "Voice feedback";
+      if (signal.recall.includes("luki")) return "Mapa luk";
+      return "Powtórka";
+    });
+  const coreGoalSteps = selectedGoals.map((goal) => goal.path[1] || goal.path[0]);
+
+  return uniqueItems(["Diagnoza", ...coreGoalSteps, ...methodSteps, "Powtórka"]).slice(0, 4);
+}
+
+function buildMethodLabel(selectedSignals, selectedGoals) {
+  const blockerMethods = selectedSignals.map((signal) => signal.method);
+  const goalMethods = selectedGoals.map((goal) => goal.method);
+  return uniqueItems([...blockerMethods, ...goalMethods].flatMap((method) => method.split(" + ")))
+    .slice(0, 3)
+    .join(" + ");
+}
+
 function updateDiagnostic(event) {
   if (event) event.preventDefault();
 
   const profile = diagnosticProfiles[qs("#ageGroup").value];
   const profileKey = qs("#ageGroup").value;
   const level = qs("#level").value.toUpperCase();
-  const goalKey = qs("#goal").value;
-  const goal = goals[goalKey];
-  const blockerKey = qs("#blocker").value;
-  const blocker = blockers[blockerKey];
-  const signal = blockerSignals[blockerKey];
+  const goalKeys = readSelection("goal");
+  const blockerKeys = readSelection("blocker");
+  const selectedGoals = goalKeys.map((key) => goals[key]);
+  const selectedSignals = blockerKeys.map((key) => blockerSignals[key]);
+  const goal = selectedGoals[0];
+  const goalLabels = selectedGoals.map((item) => item.label);
+  const blockerLabels = blockerKeys.map((key) => blockers[key]);
+  const blockerShortLabel = joinLabels(blockerKeys.map((key) => blockerNames[key]), 3);
+  const goalLabel = joinLabels(goalLabels);
+  const blockerLabel = joinLabels(blockerLabels, 2);
+  const voiceNeed = getVoiceNeed(selectedSignals);
+  const recallLabel = getRecallLabel(selectedSignals);
+  const methodLabel = buildMethodLabel(selectedSignals, selectedGoals);
+  const learningPath = buildCombinedPath(selectedGoals, selectedSignals);
   const minutes = Number(qs("#dailyTime").value);
-  const confidence = Math.min(96, 72 + Math.round(minutes / 4) + (level.includes("B") ? 8 : 4));
-  const momentum = Math.min(96, 58 + Math.round(minutes / 2) + (goalKey === "business" ? 4 : 0));
+  const confidence = Math.min(96, 70 + Math.round(minutes / 4) + (level.includes("B") ? 8 : 4) + goalKeys.length);
+  const momentum = Math.min(96, 56 + Math.round(minutes / 2) + (goalKeys.includes("business") ? 4 : 0) + blockerKeys.length);
   const intensity = minutes >= 45 ? "Intensywne" : minutes >= 25 ? "Skupione" : "Lekkie";
   const intensityScore = minutes >= 45 ? 88 : minutes >= 25 ? 66 : 42;
-  const voiceNeedScore = { High: 84, Medium: 62, Low: 38 }[signal.voice] || 62;
-  const voiceReadiness = Math.min(94, signal.readiness + (level.includes("B") ? 6 : 0) + (minutes >= 30 ? 4 : 0));
+  const voiceNeedScore = { High: 84, Medium: 62, Low: 38 }[voiceNeed] || 62;
+  const averageReadiness = Math.round(
+    selectedSignals.reduce((sum, item) => sum + item.readiness, 0) / selectedSignals.length,
+  );
+  const voiceReadiness = Math.min(94, averageReadiness + (level.includes("B") ? 6 : 0) + (minutes >= 30 ? 4 : 0));
 
   qs("#timeOutput").textContent = minutes;
   qs("#confidenceScore").textContent = `${confidence}% fit`;
-  qs("#diagnosticSummary").textContent = `${profileNames[profileKey]} · ${level} · ${goal.label}`;
+  qs("#diagnosticSummary").textContent = `${profileNames[profileKey]} · ${level} · ${goalLabel}`;
   qs("#demoIntensity").textContent = intensity;
-  qs("#voiceNeed").textContent = signal.voice;
+  qs("#voiceNeed").textContent = voiceNeed;
   qs("#momentumScore").textContent = `${momentum}%`;
   qs("#intensityMeter").style.setProperty("--signal", `${intensityScore}%`);
   qs("#voiceNeedMeter").style.setProperty("--signal", `${voiceNeedScore}%`);
   qs("#momentumMeter").style.setProperty("--signal", `${momentum}%`);
   qs("#demoProfileLabel").textContent = `${profileNames[profileKey]} · ${level}`;
-  qs("#demoGoalLabel").textContent = goal.label;
+  qs("#demoGoalLabel").textContent = goalLabel;
   qs("#demoSessionTime").textContent = `${minutes} min`;
   qs("#pathDuration").textContent = `${minutes} min`;
-  qs("#recommendationTitle").textContent = goal.title;
-  qs("#recommendationCopy").textContent = `Dla ${profile.label} na poziomie ${level} najlepszy start to ${profile.base}. Priorytetem są ${goal.focus}, a najbliższa korekta powinna objąć ${blocker}.`;
-  qs("#learningPath").innerHTML = goal.path
+  qs("#recommendationTitle").textContent =
+    goalKeys.length > 1 ? `Plan hybrydowy: ${goalLabel}` : goal.title;
+  qs("#recommendationCopy").textContent = `Dla ${profile.label} na poziomie ${level} najlepszy start to ${profile.base}. Priorytety: ${selectedGoals.map((item) => item.focus).join("; ")}. Najbliższa korekta powinna objąć: ${blockerLabel}.`;
+  qs("#learningPath").innerHTML = learningPath
     .map(
       (step, index) => `<span class="path-step">
         <i>${String(index + 1).padStart(2, "0")}</i>
@@ -295,12 +371,12 @@ function updateDiagnostic(event) {
       </span>`,
     )
     .join("");
-  qs("#methodLabel").textContent = signal.method || goal.method;
-  qs("#methodPreview").textContent = signal.method || goal.method;
+  qs("#methodLabel").textContent = methodLabel;
+  qs("#methodPreview").textContent = methodLabel;
   qs("#voiceReadiness").textContent = `${voiceReadiness}%`;
   qs("#voiceMeter").style.width = `${voiceReadiness}%`;
-  qs("#recallLabel").textContent = signal.recall;
-  qs("#weaknessAlert").innerHTML = `<strong>Słaby punkt:</strong> ${blocker}. Plan dnia: ${minutes} minut w pętli diagnoza, praktyka i powtórka.`;
+  qs("#recallLabel").textContent = recallLabel;
+  qs("#weaknessAlert").innerHTML = `<strong>Słabe punkty:</strong> ${blockerShortLabel}. Plan dnia: ${minutes} minut w pętli diagnoza, praktyka i powtórka.`;
 
   ["ageGroup", "level", "goal", "blocker"].forEach(syncChoiceButtons);
   syncTimePresets(minutes);
@@ -311,8 +387,9 @@ function syncChoiceButtons(inputId) {
   const group = qs(`.choice-group[data-input="${inputId}"]`);
   if (!input || !group) return;
 
+  const selectedValues = input.value.split(",").filter(Boolean);
   qsa("button", group).forEach((button) => {
-    const isSelected = button.dataset.value === input.value;
+    const isSelected = selectedValues.includes(button.dataset.value);
     button.classList.toggle("is-selected", isSelected);
     button.setAttribute("aria-pressed", String(isSelected));
   });
@@ -450,7 +527,21 @@ function init() {
     button.addEventListener("click", () => {
       const group = button.closest(".choice-group");
       const input = qs(`#${group.dataset.input}`);
-      input.value = button.dataset.value;
+      const isMultiple = group.dataset.multiple === "true";
+
+      if (isMultiple) {
+        const selectedValues = input.value.split(",").filter(Boolean);
+        const value = button.dataset.value;
+        const isSelected = selectedValues.includes(value);
+        const nextValues = isSelected
+          ? selectedValues.filter((item) => item !== value)
+          : [...selectedValues, value];
+
+        input.value = nextValues.length ? nextValues.join(",") : value;
+      } else {
+        input.value = button.dataset.value;
+      }
+
       updateDiagnostic();
     });
   });

@@ -959,6 +959,7 @@ label {
 .level-strip button,
 .blocker-pills button,
 .time-presets button {
+  position: relative;
   border: 1px solid rgba(16, 42, 67, 0.1);
   background: rgba(255, 255, 255, 0.72);
   color: var(--deep-navy);
@@ -990,6 +991,29 @@ label {
     linear-gradient(135deg, rgba(216, 243, 176, 0.58), rgba(184, 230, 212, 0.38)),
     #ffffff;
   box-shadow: 0 14px 34px rgba(16, 42, 67, 0.1);
+}
+
+.choice-group[data-multiple="true"] button.is-selected::after {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--deep-navy);
+  color: var(--white);
+  content: "✓";
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.blocker-pills.choice-group[data-multiple="true"] button.is-selected::after {
+  position: static;
+  display: inline-grid;
+  margin-left: 8px;
+  vertical-align: middle;
 }
 
 .choice-card {
@@ -1036,7 +1060,7 @@ label {
 
 .mini-choice-card {
   min-height: 78px;
-  padding: 14px;
+  padding: 14px 42px 14px 14px;
   border-radius: 20px;
 }
 
