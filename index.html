@@ -229,140 +229,190 @@
 
           <div class="demo-grid reveal">
             <form class="diagnostic-panel" id="diagnosticForm">
-              <div class="intake-window-topbar" aria-hidden="true">
-                <div class="window-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+              <input id="ageGroup" type="hidden" value="adult" />
+              <input id="level" type="hidden" value="b1" />
+              <input id="goal" type="hidden" value="business" />
+              <input id="blocker" type="hidden" value="speaking" />
+
+              <div class="diagnostic-app-head">
+                <div>
+                  <p class="mini-label">Intake engine</p>
+                  <h3>Personalizacja ucznia</h3>
                 </div>
-                <span class="secure-pill">Diagnostic session active</span>
+                <span class="diagnostic-live"><i></i> Live diagnosis</span>
               </div>
-              <div class="intake-body">
-                <div class="demo-panel-head">
-                  <span class="panel-step">01</span>
-                  <div>
-                    <p class="mini-label">Intake engine</p>
-                    <h3>Ustaw profil ucznia</h3>
+
+              <div class="diagnostic-profile-strip">
+                <div class="learner-avatar" aria-hidden="true">ta</div>
+                <div>
+                  <span>Aktualny profil</span>
+                  <strong id="diagnosticSummary">Dorosły · B1 · Rozmowy biznesowe</strong>
+                </div>
+                <div class="diagnostic-chip">
+                  <span>Tryb AI</span>
+                  <strong>Personalizacja live</strong>
+                </div>
+              </div>
+
+              <div class="app-control-panel">
+                <section class="choice-section">
+                  <div class="choice-head">
+                    <span>01</span>
+                    <div>
+                      <h4>Profil</h4>
+                      <p>Wybierz segment użytkownika.</p>
+                    </div>
                   </div>
-                  <span class="intake-status">4 sygnały analizowane</span>
+                  <div class="choice-grid profile-choice-grid choice-group" data-input="ageGroup" aria-label="Wybierz profil użytkownika">
+                    <button class="choice-card is-selected" type="button" data-value="adult" aria-pressed="true">
+                      <span class="choice-mark">A</span>
+                      <strong>Dorosły</strong>
+                      <small>praca, biznes, codzienność</small>
+                    </button>
+                    <button class="choice-card" type="button" data-value="student" aria-pressed="false">
+                      <span class="choice-mark">S</span>
+                      <strong>Student</strong>
+                      <small>prezentacje, mobilność, staż</small>
+                    </button>
+                    <button class="choice-card" type="button" data-value="teen" aria-pressed="false">
+                      <span class="choice-mark">U</span>
+                      <strong>Uczeń</strong>
+                      <small>szkoła, sprawdziany, matura</small>
+                    </button>
+                    <button class="choice-card" type="button" data-value="child" aria-pressed="false">
+                      <span class="choice-mark">D</span>
+                      <strong>Dziecko</strong>
+                      <small>krótkie misje, rodzic, bezpieczeństwo</small>
+                    </button>
+                    <button class="choice-card" type="button" data-value="senior" aria-pressed="false">
+                      <span class="choice-mark">60+</span>
+                      <strong>Senior</strong>
+                      <small>spokojne tempo, czytelność, rozmowa</small>
+                    </button>
+                    <button class="choice-card" type="button" data-value="company" aria-pressed="false">
+                      <span class="choice-mark">B2B</span>
+                      <strong>Firma</strong>
+                      <small>retail, customer service, zespoły</small>
+                    </button>
+                  </div>
+                </section>
+
+                <div class="choice-two-column">
+                  <section class="choice-section compact">
+                    <div class="choice-head">
+                      <span>02</span>
+                      <div>
+                        <h4>Poziom</h4>
+                        <p>Start diagnostyki.</p>
+                      </div>
+                    </div>
+                    <div class="level-strip choice-group" data-input="level" aria-label="Wybierz poziom języka">
+                      <button type="button" data-value="a0" aria-pressed="false">A0</button>
+                      <button type="button" data-value="a1" aria-pressed="false">A1</button>
+                      <button type="button" data-value="a2" aria-pressed="false">A2</button>
+                      <button class="is-selected" type="button" data-value="b1" aria-pressed="true">B1</button>
+                      <button type="button" data-value="b2" aria-pressed="false">B2</button>
+                      <button type="button" data-value="c1" aria-pressed="false">C1</button>
+                    </div>
+                  </section>
+
+                  <section class="choice-section compact">
+                    <div class="choice-head">
+                      <span>03</span>
+                      <div>
+                        <h4>Blokada</h4>
+                        <p>Co hamuje postęp?</p>
+                      </div>
+                    </div>
+                    <div class="blocker-pills choice-group" data-input="blocker" aria-label="Wybierz główny problem">
+                      <button class="is-selected" type="button" data-value="speaking" aria-pressed="true">Mówienie</button>
+                      <button type="button" data-value="grammar" aria-pressed="false">Gramatyka</button>
+                      <button type="button" data-value="listening" aria-pressed="false">Słuchanie</button>
+                      <button type="button" data-value="motivation" aria-pressed="false">Motywacja</button>
+                      <button type="button" data-value="vocabulary" aria-pressed="false">Słownictwo</button>
+                    </div>
+                  </section>
                 </div>
 
-                <div class="intake-summary">
-                  <div>
-                    <span>Aktualny profil</span>
-                    <strong id="diagnosticSummary">Dorosły · B1 · Rozmowy biznesowe</strong>
+                <section class="choice-section">
+                  <div class="choice-head">
+                    <span>04</span>
+                    <div>
+                      <h4>Cel nauki</h4>
+                      <p>System dopasuje ścieżkę i metodę do zadania.</p>
+                    </div>
                   </div>
-                  <div>
-                    <span>Tryb AI</span>
-                    <strong>Personalizacja live</strong>
+                  <div class="goal-card-grid choice-group" data-input="goal" aria-label="Wybierz cel nauki">
+                    <button class="mini-choice-card is-selected" type="button" data-value="business" aria-pressed="true">
+                      <strong>Biznes</strong>
+                      <small>spotkania, argumentacja, klienci</small>
+                    </button>
+                    <button class="mini-choice-card" type="button" data-value="exam" aria-pressed="false">
+                      <strong>Egzamin</strong>
+                      <small>testy, kryteria, presja czasu</small>
+                    </button>
+                    <button class="mini-choice-card" type="button" data-value="travel" aria-pressed="false">
+                      <strong>Podróże</strong>
+                      <small>sytuacje, dialogi, reakcje</small>
+                    </button>
+                    <button class="mini-choice-card" type="button" data-value="school" aria-pressed="false">
+                      <strong>Szkoła</strong>
+                      <small>tematy, powtórki, sprawdziany</small>
+                    </button>
+                    <button class="mini-choice-card" type="button" data-value="relocation" aria-pressed="false">
+                      <strong>Relokacja</strong>
+                      <small>formalności, praca, codzienność</small>
+                    </button>
                   </div>
-                </div>
+                </section>
 
-                <div class="intake-control-card">
-                  <div class="field-grid" aria-label="Dane wejściowe diagnostyki">
-                    <label class="form-field">
-                      <span class="field-top">
-                        <span>Profil</span>
-                        <small>segment</small>
-                      </span>
-                      <select id="ageGroup" aria-label="Wybierz profil użytkownika">
-                        <option value="adult">Dorosły</option>
-                        <option value="student">Student</option>
-                        <option value="teen">Uczeń</option>
-                        <option value="child">Dziecko</option>
-                        <option value="senior">Senior</option>
-                        <option value="company">Firma</option>
-                      </select>
-                    </label>
-                    <label class="form-field">
-                      <span class="field-top">
-                        <span>Poziom</span>
-                        <small>start</small>
-                      </span>
-                      <select id="level" aria-label="Wybierz poziom języka">
-                        <option value="a0">A0</option>
-                        <option value="a1">A1</option>
-                        <option value="a2">A2</option>
-                        <option value="b1" selected>B1</option>
-                        <option value="b2">B2</option>
-                        <option value="c1">C1</option>
-                      </select>
-                    </label>
-                    <label class="form-field">
-                      <span class="field-top">
-                        <span>Cel</span>
-                        <small>priorytet</small>
-                      </span>
-                      <select id="goal" aria-label="Wybierz cel nauki">
-                        <option value="business" selected>Rozmowy biznesowe</option>
-                        <option value="exam">Egzamin</option>
-                        <option value="travel">Podróże</option>
-                        <option value="school">Szkoła</option>
-                        <option value="relocation">Relokacja</option>
-                      </select>
-                    </label>
-                    <label class="form-field">
-                      <span class="field-top">
-                        <span>Blokada</span>
-                        <small>luka</small>
-                      </span>
-                      <select id="blocker" aria-label="Wybierz główny problem">
-                        <option value="speaking" selected>Mówienie</option>
-                        <option value="grammar">Gramatyka</option>
-                        <option value="listening">Słuchanie</option>
-                        <option value="motivation">Motywacja</option>
-                        <option value="vocabulary">Słownictwo</option>
-                      </select>
-                    </label>
+                <section class="time-control-card">
+                  <div class="range-top">
+                    <span>Czas dziennie</span>
+                    <strong><output id="timeOutput">25</output> min</strong>
                   </div>
+                  <input id="dailyTime" type="range" min="10" max="60" step="5" value="25" aria-label="Czas nauki dziennie w minutach" />
+                  <div class="time-presets" aria-label="Szybki wybór czasu nauki">
+                    <button type="button" data-time="15">15 min</button>
+                    <button class="is-selected" type="button" data-time="25">25 min</button>
+                    <button type="button" data-time="40">40 min</button>
+                    <button type="button" data-time="60">60 min</button>
+                  </div>
+                </section>
+              </div>
 
-                  <label class="range-label diagnostic-range">
-                    <span class="range-top">
-                      <span>Czas dziennie</span>
-                      <strong><output id="timeOutput">25</output> min</strong>
-                    </span>
-                    <input id="dailyTime" type="range" min="10" max="60" step="5" value="25" aria-label="Czas nauki dziennie w minutach" />
-                    <span class="range-scale" aria-hidden="true">
-                      <small>10 min</small>
-                      <small>35 min</small>
-                      <small>60 min</small>
-                    </span>
-                  </label>
+              <div class="diagnostic-signals" aria-label="Sygnały diagnostyczne">
+                <div>
+                  <span>Tempo</span>
+                  <strong id="demoIntensity">Skupione</strong>
+                  <i id="intensityMeter" style="--signal: 62%"></i>
                 </div>
+                <div>
+                  <span>Voice need</span>
+                  <strong id="voiceNeed">High</strong>
+                  <i id="voiceNeedMeter" style="--signal: 78%"></i>
+                </div>
+                <div>
+                  <span>Momentum</span>
+                  <strong id="momentumScore">82%</strong>
+                  <i id="momentumMeter" style="--signal: 82%"></i>
+                </div>
+              </div>
 
-                <div class="diagnostic-signals" aria-label="Sygnały diagnostyczne">
-                  <div>
-                    <span>Tempo</span>
-                    <strong id="demoIntensity">Skupione</strong>
-                    <i id="intensityMeter" style="--signal: 62%"></i>
-                  </div>
-                  <div>
-                    <span>Voice need</span>
-                    <strong id="voiceNeed">High</strong>
-                    <i id="voiceNeedMeter" style="--signal: 78%"></i>
-                  </div>
-                  <div>
-                    <span>Momentum</span>
-                    <strong id="momentumScore">82%</strong>
-                    <i id="momentumMeter" style="--signal: 82%"></i>
-                  </div>
+              <div class="intake-stack" aria-label="Metody wybrane przez diagnostykę">
+                <div class="stack-card primary">
+                  <span>Rekomendowana metoda</span>
+                  <strong id="methodPreview">Shadowing + Deliberate Practice</strong>
                 </div>
+                <div class="stack-card">
+                  <span>Warstwa ochronna</span>
+                  <strong>Privacy-first learning signals</strong>
+                </div>
+              </div>
 
-                <div class="intake-stack" aria-label="Metody wybrane przez diagnostykę">
-                  <div class="stack-card primary">
-                    <span>Rekomendowana metoda</span>
-                    <strong id="methodPreview">Shadowing + Deliberate Practice</strong>
-                  </div>
-                  <div class="stack-card">
-                    <span>Warstwa ochronna</span>
-                    <strong>Privacy-first learning signals</strong>
-                  </div>
-                </div>
-
-                <div class="intake-action-row">
-                  <span>To demo modelowe. Wynik zmienia się po każdej zmianie profilu.</span>
-                  <button class="btn btn-primary" type="submit">Pokaż rekomendację</button>
-                </div>
+              <div class="intake-action-row">
+                <span>To demo modelowe. Kafelki sterują rekomendacją tak jak w aplikacji.</span>
+                <button class="btn btn-primary" type="submit">Pokaż rekomendację</button>
               </div>
             </form>
 

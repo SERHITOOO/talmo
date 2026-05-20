@@ -250,7 +250,7 @@ const formatCurrency = new Intl.NumberFormat("pl-PL", {
 });
 
 const qs = (selector) => document.querySelector(selector);
-const qsa = (selector) => Array.from(document.querySelectorAll(selector));
+const qsa = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
 function updateDiagnostic(event) {
   if (event) event.preventDefault();
@@ -301,6 +301,29 @@ function updateDiagnostic(event) {
   qs("#voiceMeter").style.width = `${voiceReadiness}%`;
   qs("#recallLabel").textContent = signal.recall;
   qs("#weaknessAlert").innerHTML = `<strong>Słaby punkt:</strong> ${blocker}. Plan dnia: ${minutes} minut w pętli diagnoza, praktyka i powtórka.`;
+
+  ["ageGroup", "level", "goal", "blocker"].forEach(syncChoiceButtons);
+  syncTimePresets(minutes);
+}
+
+function syncChoiceButtons(inputId) {
+  const input = qs(`#${inputId}`);
+  const group = qs(`.choice-group[data-input="${inputId}"]`);
+  if (!input || !group) return;
+
+  qsa("button", group).forEach((button) => {
+    const isSelected = button.dataset.value === input.value;
+    button.classList.toggle("is-selected", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
+}
+
+function syncTimePresets(minutes) {
+  qsa(".time-presets button").forEach((button) => {
+    const isSelected = Number(button.dataset.time) === minutes;
+    button.classList.toggle("is-selected", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
 }
 
 function updateProfile(profileKey) {
@@ -419,8 +442,24 @@ function initReveal() {
 
 function init() {
   qs("#diagnosticForm").addEventListener("submit", updateDiagnostic);
-  ["#ageGroup", "#level", "#goal", "#blocker", "#dailyTime"].forEach((selector) => {
+  ["#dailyTime"].forEach((selector) => {
     qs(selector).addEventListener("input", updateDiagnostic);
+  });
+
+  qsa(".choice-group button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const group = button.closest(".choice-group");
+      const input = qs(`#${group.dataset.input}`);
+      input.value = button.dataset.value;
+      updateDiagnostic();
+    });
+  });
+
+  qsa(".time-presets button").forEach((button) => {
+    button.addEventListener("click", () => {
+      qs("#dailyTime").value = button.dataset.time;
+      updateDiagnostic();
+    });
   });
 
   qsa(".profile-tab").forEach((tab) => {
