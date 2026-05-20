@@ -14,6 +14,8 @@ Talmo diagnoses a learner's level, goal, pace and blockers, then turns those inp
 - Learning Engine architecture
 - Subject switcher for language, math, code, geography and exam prep
 - Strategic VC fit and AI technology roadmap
+- 8-week pilot proposal with go/no-go metrics
+- Data flywheel and responsible AI layer
 - Business expansion paths: B2C, B2B, B2B2C and multi-subject bundles
 - Market data cards with public source links
 - Investor one-pager section
