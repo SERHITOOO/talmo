@@ -2216,11 +2216,32 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .engine-map {
+  position: relative;
+  overflow: hidden;
   background:
     radial-gradient(circle at 100% 0, rgba(185, 221, 247, 0.28), transparent 32%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 242, 246, 0.64)),
     var(--white);
   color: var(--deep-navy);
+}
+
+.engine-map::after {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  width: 128px;
+  height: 42px;
+  border: 1px solid rgba(16, 42, 67, 0.06);
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(185, 221, 247, 0.58), rgba(184, 230, 212, 0.54), rgba(246, 164, 77, 0.22)),
+    rgba(255, 255, 255, 0.72);
+  content: "";
+}
+
+.engine-map > * {
+  position: relative;
+  z-index: 1;
 }
 
 .engine-map .mini-label {
@@ -2236,25 +2257,36 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 32px;
 }
 
+.engine-map-head {
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(16, 42, 67, 0.08);
+}
+
 .engine-flow {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 18px;
 }
 
 .engine-flow div {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-rows: auto auto;
   gap: 14px;
   align-items: start;
+  min-height: 126px;
   padding: 16px;
   border: 1px solid rgba(16, 42, 67, 0.08);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(250, 251, 247, 0.7)),
+    rgba(255, 255, 255, 0.72);
 }
 
 .engine-flow span {
   display: grid;
+  grid-row: 1 / span 2;
   width: 42px;
   height: 42px;
   place-items: center;
@@ -2268,12 +2300,15 @@ input[type="range"]::-webkit-slider-thumb {
 .engine-flow strong {
   display: block;
   font-weight: 950;
+  line-height: 1.2;
 }
 
 .engine-flow p {
+  grid-column: 2;
   margin: 4px 0 0;
   color: var(--ink-soft);
   font-size: 14px;
+  line-height: 1.45;
 }
 
 .subject-lab {
@@ -3441,6 +3476,16 @@ tbody tr:last-child td {
 
   .engine-flow div {
     grid-template-columns: 1fr;
+  }
+
+  .engine-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .engine-flow span,
+  .engine-flow p {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .subject-orbit {
