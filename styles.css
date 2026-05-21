@@ -244,6 +244,18 @@ svg {
   text-transform: uppercase;
 }
 
+.mini-label,
+.source-note {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  line-height: 1.25;
+  overflow-wrap: normal;
+  text-transform: none;
+  white-space: normal;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -2212,6 +2224,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .engine-map .mini-label {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(185, 221, 247, 0.38);
   color: #4f6680;
 }
 
@@ -2669,6 +2684,15 @@ input[type="range"]::-webkit-slider-thumb {
   color: var(--ink-soft);
 }
 
+.pilot-main > .source-note {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(185, 221, 247, 0.32);
+  color: #41627e;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .pilot-steps {
   display: grid;
   gap: 12px;
@@ -2680,6 +2704,7 @@ input[type="range"]::-webkit-slider-thumb {
 .pilot-steps li {
   display: grid;
   grid-template-columns: 58px minmax(0, 1fr);
+  grid-template-rows: auto auto;
   gap: 14px;
   align-items: start;
   padding: 16px;
@@ -2690,6 +2715,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .pilot-steps span {
   display: grid;
+  grid-row: 1 / span 2;
   min-height: 42px;
   place-items: center;
   border-radius: 16px;
@@ -2705,8 +2731,10 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .pilot-steps p {
+  grid-column: 2;
   margin-top: 4px;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 .pilot-metrics {
@@ -2781,6 +2809,7 @@ input[type="range"]::-webkit-slider-thumb {
 .data-flywheel,
 .responsible-ai {
   padding: 30px;
+  overflow: hidden;
 }
 
 .data-flywheel {
@@ -2796,13 +2825,16 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .flywheel-head h3 {
-  max-width: 760px;
+  max-width: min(100%, 1040px);
+  font-size: clamp(30px, 3.25vw, 48px);
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
 .flywheel-steps {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
   margin-top: 24px;
 }
 
@@ -3178,6 +3210,12 @@ tbody tr:last-child td {
 
   .pilot-steps li {
     grid-template-columns: 1fr;
+  }
+
+  .pilot-steps span,
+  .pilot-steps p {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .flywheel-steps {
