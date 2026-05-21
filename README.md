@@ -11,12 +11,13 @@ Talmo diagnoses a learner's level, goal, pace and blockers, then turns those inp
 - Knowledge test with instant feedback
 - Business model calculator for MRR, ARR, AI cost and model margin
 - Profile switcher for different learner segments
+- Education and workforce systems section for schools, universities, seniors and B2B
 - Learning Engine architecture
 - Subject switcher for language, math, code, geography and exam prep
 - Strategic VC fit and AI technology roadmap
 - 8-week pilot proposal with go/no-go metrics
 - Data flywheel and responsible AI layer
-- Business expansion paths: B2C, B2B, B2B2C and multi-subject bundles
+- Business expansion paths: B2C, B2B, education systems and multi-subject bundles
 - Market data cards with public source links
 - Investor one-pager section
 - Responsive static implementation with no build step
